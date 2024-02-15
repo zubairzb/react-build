@@ -1,0 +1,11 @@
+# values.yaml
+image:
+  repository: public.ecr.aws/h0r7c1y8/zbsouq
+  tag: latest
+
+replicaCount: 2
+
+service:
+  name: souq-app-service
+  type: LoadBalancer
+  port: 80

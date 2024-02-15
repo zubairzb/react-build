@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: souq-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: souq-app-deployment
+  namespace: souq-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: souq-app
+  template:
+    metadata:
+      labels:
+        app: souq-app
+    spec:
+      containers:
+      - name: souq-app-container
+        image: public.ecr.aws/h0r7c1y8/zbsouq:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: souq-app-service
+  namespace: souq-app
+spec:
+  selector:
+    app: souq-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
